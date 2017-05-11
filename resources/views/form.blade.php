@@ -71,6 +71,7 @@
                 <div class="title m-b-md">
                     Form Page
                 </div>
+
                 <!-- DBから取得した投稿一覧を表示 -->
                 <div class="container">
                     {!! Form::open(['url' => 'create', 'method' => 'post']) !!}
@@ -80,12 +81,15 @@
                 </div>
                 <div class="form-group">
                     {!! Form::label('content', 'コンテンツ:') !!}
-                    {!! Form::text('content', null, ['class' => 'form-control']) !!}
+                    {!! Form::textarea('content', null, ['class' => 'form-control']) !!}
                 </div>
                 <div class="form-group">
                     {!! Form::submit("Send", ['class' => 'btn btn-primary form-control']) !!}
                 </div>
-                {!! Form::close() !!}
+                    {!! Form::close() !!}
+                </div>
+                <div>
+                    {{ link_to('list', '一覧') }}
                 </div>
 
             </div>

@@ -9,37 +9,44 @@ use DB;
 class PostController extends Controller
 {
 
-  //一覧画面
-  public function list()
-  {
-    //DBデータをまとめてもらう
-    $posts = Post::all();
+    //一覧画面
+    public function list()
+    {
+        //DBデータをまとめてもらう
+        $posts = Post::all();
 
-    return view('list', [
-      "posts" => $posts
-    ]);
-  }
-  //詳細画面
-  public function detail(Request $request)
-  {
-  }
+        return view('list', [
+            "posts" => $posts
+        ]);
+    }
+    //詳細画面
+    public function detail(Request $request, $id)
+    {
+        //DBデータをまとめてもらう
+        $posts = Post::where('id', $id)
+                   ->get();
 
-  //作成画面
-  public function create(Request $request)
-  {
-    //リクエストで受けた全てのデータ
-    $data = $request->all();
+        return view('list', [
+            "posts" => $posts
+        ]);
+    }
 
-    //データをpostsテーブルにインサート
-    DB::table('posts')->insert([
-      'title' => $data['title'],
-      'content' => $data['content'],
-      'create_at' => new \DateTime(),
-      'update_at' => new \DateTime()
-    ]);
+    //作成画面
+    public function create(Request $request)
+    {
+        //リクエストで受けた全てのデータ
+        $data = $request->all();
 
-    //一覧ページへリダイレクトをおこなう
-    return redirect('list');
-  }
+        //データをpostsテーブルにインサート
+        DB::table('posts')->insert([
+            'title' => $data['title'],
+            'content' => $data['content'],
+            'create_at' => new \DateTime(),
+            'update_at' => new \DateTime()
+        ]);
+
+        //一覧ページへリダイレクトをおこなう
+        return redirect('list');
+    }
 
 }

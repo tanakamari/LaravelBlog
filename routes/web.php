@@ -19,9 +19,18 @@ Route::get('/', function () {
 //一覧ページ
 Route::get('list', 'PostController@list');
 
+//詳細ページ
+//idを正規表現で取得する
+Route::get('post/{id}', 'PostController@detail');
+
+//修正フォーム
+Route::get('post/{id}/update', function () {
+    return view('form');
+});
+
 //作成フォーム
 Route::get('create', function () {
-    return view('create');
+    return view('form');
 });
 
 //作成処理

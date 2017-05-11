@@ -76,18 +76,17 @@
                     @foreach($posts as $post)
                         <tr>
                             <td>{{ $post->id }}</td>
-                            <td>{{ $post->title }}</td>
-                            <td>{{ $post->content }}</td>
+                            <td>{{ link_to('post/'.$post->id , $post->title) }}</td>
                             <td>{{ $post->create_at }}</td>
                             <td>{{ $post->update_at }}</td>
                         </tr>
                   @endforeach
                 </table>
                 <div>
-                  {{ link_to('create', '新規登録') }}
-                  {{-- HTML::linkRoute('list','新規投稿') --}}
+                    {{ link_to('list', '一覧') }}
+                    {{ link_to('create', '新規登録') }}
+                    {{-- HTML::linkRoute('list','新規投稿') --}}
                 </div>
-
 
             </div>
         </div>
