@@ -11,6 +11,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+      //自分で作成したシーダを呼び出す（追加シーダの呼び出し）
+      $this->call(PostsTableSeeder::class);
     }
 }

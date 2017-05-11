@@ -11,6 +11,12 @@
 |
 */
 
+/*
 Route::get('/', function () {
     return view('welcome');
 });
+*/
+
+//コントローラへ飛ばす
+Route::get('/', 'PostController@welcome');
+Route::get('/list', 'PostController@list');
