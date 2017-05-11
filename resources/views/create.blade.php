@@ -69,25 +69,24 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    list Page
+                    Form Page
                 </div>
                 <!-- DBから取得した投稿一覧を表示 -->
-                <table border="1">
-                    @foreach($posts as $post)
-                        <tr>
-                            <td>{{ $post->id }}</td>
-                            <td>{{ $post->title }}</td>
-                            <td>{{ $post->content }}</td>
-                            <td>{{ $post->create_at }}</td>
-                            <td>{{ $post->update_at }}</td>
-                        </tr>
-                  @endforeach
-                </table>
-                <div>
-                  {{ link_to('create', '新規登録') }}
-                  {{-- HTML::linkRoute('list','新規投稿') --}}
+                <div class="container">
+                    {!! Form::open(['url' => 'create', 'method' => 'post']) !!}
+                <div class="form-group">
+                    {!! Form::label('title', 'タイトル:') !!}
+                    {!! Form::text('title', null, ['class' => 'form-control']) !!}
                 </div>
-
+                <div class="form-group">
+                    {!! Form::label('content', 'コンテンツ:') !!}
+                    {!! Form::text('content', null, ['class' => 'form-control']) !!}
+                </div>
+                <div class="form-group">
+                    {!! Form::submit("Send", ['class' => 'btn btn-primary form-control']) !!}
+                </div>
+                {!! Form::close() !!}
+                </div>
 
             </div>
         </div>

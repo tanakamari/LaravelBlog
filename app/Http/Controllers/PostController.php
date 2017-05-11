@@ -4,15 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Post;
+use DB;
 
 class PostController extends Controller
 {
 
-  public function welcome()
-  {
-    return view('welcome');
-  }
-
+  //一覧画面
   public function list()
   {
     //DBデータをまとめてもらう
@@ -21,6 +18,28 @@ class PostController extends Controller
     return view('list', [
       "posts" => $posts
     ]);
+  }
+  //詳細画面
+  public function detail(Request $request)
+  {
+  }
+
+  //作成画面
+  public function create(Request $request)
+  {
+    //リクエストで受けた全てのデータ
+    $data = $request->all();
+
+    //データをpostsテーブルにインサート
+    DB::table('posts')->insert([
+      'title' => $data['title'],
+      'content' => $data['content'],
+      'create_at' => new \DateTime(),
+      'update_at' => new \DateTime()
+    ]);
+
+    //一覧ページへリダイレクトをおこなう
+    return redirect('list');
   }
 
 }

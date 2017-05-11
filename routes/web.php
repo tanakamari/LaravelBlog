@@ -11,12 +11,18 @@
 |
 */
 
-/*
+//defaultページ
 Route::get('/', function () {
     return view('welcome');
 });
-*/
 
-//コントローラへ飛ばす
-Route::get('/', 'PostController@welcome');
-Route::get('/list', 'PostController@list');
+//一覧ページ
+Route::get('list', 'PostController@list');
+
+//作成フォーム
+Route::get('create', function () {
+    return view('create');
+});
+
+//作成処理
+Route::post('create', 'PostController@create');
