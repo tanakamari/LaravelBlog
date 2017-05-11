@@ -26,9 +26,45 @@ class PostController extends Controller
         $posts = Post::where('id', $id)
                    ->get();
 
-        return view('list', [
+        return view('detail', [
             "posts" => $posts
         ]);
+    }
+    //編集画面
+    public function edit(Request $request, $id)
+    {
+        //DBデータをまとめてもらう
+        $posts = Post::where('id', $id)
+                   ->get();
+
+        return view('update', [
+            "posts" => $posts
+        ]);
+    }
+    //編集処理
+    public function update(Request $request, $id)
+    {
+        //リクエストで受けた全てのデータ
+        $data = $request->all();
+
+        //データをpostsテーブルにアップデート
+        Post::where('id', $id)
+            ->update([
+                'title' => $data['title'],
+                'content' => $data['content']
+            ]);
+        //アップデートは下記の書き方でもOK
+        /*
+        $posts = Post::find($id);
+        $posts->title = $data['title'];
+        $posts->content = $data['content'];
+        $posts->save();
+        */
+
+
+
+        //一覧ページへリダイレクトをおこなう
+        return redirect('post/'.$id);
     }
 
     //作成画面

@@ -20,15 +20,15 @@ Route::get('/', function () {
 Route::get('list', 'PostController@list');
 
 //詳細ページ
-//idを正規表現で取得する
-Route::get('post/{id}', 'PostController@detail');
+Route::get('post/{id}', 'PostController@detail');   //idを正規表現で取得する
 
-//修正フォーム
-Route::get('post/{id}/update', function () {
-    return view('form');
-});
+//編集ページ
+Route::get('post/{id}/edit', 'PostController@edit');
 
-//作成フォーム
+//編集処理
+Route::post('post/{id}/update', 'PostController@update');
+
+//作成ページ
 Route::get('create', function () {
     return view('form');
 });

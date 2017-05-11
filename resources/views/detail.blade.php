@@ -72,14 +72,17 @@
                     list Page
                 </div>
                 <div>
-                    {{ link_to('create', '新規登録') }}
+                    {{ link_to('list', '一覧') }}
                 </div>
                                 <!-- DBから取得した投稿一覧を表示 -->
-                <table >
+                <table border="1">
                     @foreach($posts as $post)
                         <tr>
                             <td>{{ $post->id }}</td>
-                            <td>{{ link_to('post/'.$post->id, $post->title) }}</td>
+                            <td>{{ link_to('post/'.$post->id.'/edit', $post->title) }}</td>
+                            <td>{{ $post->content }}</td>
+                            <td>{{ $post->created_at }}</td>
+                            <td>{{ $post->updated_at }}</td>
                         </tr>
                   @endforeach
                 </table>

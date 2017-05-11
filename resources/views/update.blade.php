@@ -71,25 +71,25 @@
                 <div class="title m-b-md">
                     Form Page
                 </div>
+                <div>
+                    {{ link_to('list', '一覧') }}
+                </div>
 
                 <!-- DBから取得した投稿一覧を表示 -->
                 <div class="container">
-                    {!! Form::open(['url' => 'create', 'method' => 'post']) !!}
+                    {!! Form::open(['url' => 'post/'.$posts[0]->id.'/update', 'method' => 'post']) !!}
                 <div class="form-group">
                     {!! Form::label('title', 'タイトル:') !!}
-                    {!! Form::text('title', null, ['class' => 'form-control']) !!}
+                    {!! Form::text('title', $posts[0]->title, ['class' => 'form-control']) !!}
                 </div>
                 <div class="form-group">
                     {!! Form::label('content', 'コンテンツ:') !!}
-                    {!! Form::textarea('content', null, ['class' => 'form-control']) !!}
+                    {!! Form::textarea('content', $posts[0]->content, ['class' => 'form-control']) !!}
                 </div>
                 <div class="form-group">
                     {!! Form::submit("Send", ['class' => 'btn btn-primary form-control']) !!}
                 </div>
                     {!! Form::close() !!}
-                </div>
-                <div>
-                    {{ link_to('list', '一覧') }}
                 </div>
 
             </div>
