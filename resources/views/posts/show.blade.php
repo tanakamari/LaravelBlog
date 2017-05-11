@@ -69,28 +69,22 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Form Page
+                    list Page
                 </div>
                 <div>
-                    {{ link_to('list', '一覧') }}
+                    {{ link_to('/', '一覧') }}
                 </div>
+                                <!-- DBから取得した投稿一覧を表示 -->
+                <table border="1">
+                    <tr>
+                        <td>{{ $post->id }}</td>
+                        <td>{{ link_to('posts/'.$post->id.'/edit', $post->title) }}</td>
+                        <td>{{ $post->content }}</td>
+                        <td>{{ $post->created_at }}</td>
+                        <td>{{ $post->updated_at }}</td>
+                    </tr>
+                </table>
 
-                <!-- DBから取得した投稿一覧を表示 -->
-                <div class="container">
-                    {!! Form::open(['url' => 'post/'.$posts[0]->id.'/update', 'method' => 'post']) !!}
-                <div class="form-group">
-                    {!! Form::label('title', 'タイトル:') !!}
-                    {!! Form::text('title', $posts[0]->title, ['class' => 'form-control']) !!}
-                </div>
-                <div class="form-group">
-                    {!! Form::label('content', 'コンテンツ:') !!}
-                    {!! Form::textarea('content', $posts[0]->content, ['class' => 'form-control']) !!}
-                </div>
-                <div class="form-group">
-                    {!! Form::submit("Send", ['class' => 'btn btn-primary form-control']) !!}
-                </div>
-                    {!! Form::close() !!}
-                </div>
 
             </div>
         </div>

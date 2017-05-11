@@ -69,24 +69,15 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    list Page
+                    Form Page
                 </div>
                 <div>
                     {{ link_to('list', '一覧') }}
                 </div>
-                                <!-- DBから取得した投稿一覧を表示 -->
-                <table border="1">
-                    @foreach($posts as $post)
-                        <tr>
-                            <td>{{ $post->id }}</td>
-                            <td>{{ link_to('post/'.$post->id.'/edit', $post->title) }}</td>
-                            <td>{{ $post->content }}</td>
-                            <td>{{ $post->created_at }}</td>
-                            <td>{{ $post->updated_at }}</td>
-                        </tr>
-                  @endforeach
-                </table>
 
+                {!! Form::open(['url' => '/posts/' . $post->id, 'method' => 'put']) !!}
+                    @include('posts._form')
+                {!! Form::close() !!}
 
             </div>
         </div>

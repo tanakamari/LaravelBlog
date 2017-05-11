@@ -10,35 +10,54 @@ class PostController extends Controller
 {
 
     //一覧画面
-    public function list()
+    public function index()
     {
         //DBデータをまとめてもらう
         $posts = Post::all();
 
-        return view('list', [
+        return view('posts.index', [
             "posts" => $posts
         ]);
     }
     //詳細画面
-    public function detail(Request $request, $id)
+    public function show($id)
     {
         //DBデータをまとめてもらう
-        $posts = Post::where('id', $id)
-                   ->get();
+        $post = Post::find($id);
 
-        return view('detail', [
-            "posts" => $posts
+        return view('posts.show', [
+            "post" => $post
         ]);
     }
+    // 作成画面
+    public function create()
+    {
+        //DBデータをまとめてもらう
+        $post = new Post();
+
+        return view('posts.create', [
+            "post" => $post
+        ]);
+    }
+
+    //作成処理
+    public function store(Request $request)
+    {
+        dd($request->all());
+        Post::create($request->all());
+
+        //一覧ページへリダイレクトをおこなう
+        return redirect('/');
+    }
+
     //編集画面
     public function edit(Request $request, $id)
     {
         //DBデータをまとめてもらう
-        $posts = Post::where('id', $id)
-                   ->get();
+        $post = Post::find($id);
 
-        return view('update', [
-            "posts" => $posts
+        return view('posts.edit', [
+            "post" => $post
         ]);
     }
     //編集処理
@@ -64,25 +83,6 @@ class PostController extends Controller
 
 
         //一覧ページへリダイレクトをおこなう
-        return redirect('post/'.$id);
+        return redirect('/posts/'.$id);
     }
-
-    //作成画面
-    public function create(Request $request)
-    {
-        //リクエストで受けた全てのデータ
-        $data = $request->all();
-
-        //データをpostsテーブルにインサート
-        DB::table('posts')->insert([
-            'title' => $data['title'],
-            'content' => $data['content'],
-            'create_at' => new \DateTime(),
-            'update_at' => new \DateTime()
-        ]);
-
-        //一覧ページへリダイレクトをおこなう
-        return redirect('list');
-    }
-
 }

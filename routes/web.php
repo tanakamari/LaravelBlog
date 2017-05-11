@@ -12,26 +12,25 @@
 */
 
 //defaultページ
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'PostController@index');
 
 //一覧ページ
-Route::get('list', 'PostController@list');
-
-//詳細ページ
-Route::get('post/{id}', 'PostController@detail');   //idを正規表現で取得する
-
-//編集ページ
-Route::get('post/{id}/edit', 'PostController@edit');
-
-//編集処理
-Route::post('post/{id}/update', 'PostController@update');
+Route::get('/posts', 'PostController@index');
 
 //作成ページ
-Route::get('create', function () {
-    return view('form');
-});
+Route::get('/posts/create', 'PostController@create');
 
 //作成処理
-Route::post('create', 'PostController@create');
+Route::post('/posts', 'PostController@store');
+
+//詳細ページ
+Route::get('/posts/{id}', 'PostController@show');   //idを正規表現で取得する
+
+//編集ページ
+Route::get('/posts/{id}/edit', 'PostController@edit');
+
+//編集処理
+Route::put('/posts/{id}', 'PostController@update');
+
+//削除処理
+Route::post('/posts/{id}/delete', 'PostController@delete');
