@@ -33,4 +33,4 @@ Route::get('/posts/{id}/edit', 'PostController@edit');
 Route::put('/posts/{id}', 'PostController@update');
 
 //削除処理
-Route::delete('/posts/{id}/delete', 'PostController@delete');
+Route::delete('/posts/{id}/destroy', 'PostController@destroy');

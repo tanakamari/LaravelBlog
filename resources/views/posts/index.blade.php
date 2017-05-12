@@ -14,7 +14,7 @@
                 <div class="links">
                     {{ link_to('posts/' . $post->id, $post->title) }}
                     @include('posts._edit')
-                    @include('posts._delete')
+                    @include('posts._destroy')
                 </ul>
             </div>
         @endforeach

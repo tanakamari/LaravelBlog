@@ -32,7 +32,7 @@
             @include('posts._edit')
         </td>
         <td>
-            @include('posts._delete')
+            @include('posts._destroy')
         </td>
     </table>
 @endsection
