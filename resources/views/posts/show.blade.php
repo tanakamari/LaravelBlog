@@ -1,92 +1,38 @@
-<!doctype html>
-<html lang="{{ config('app.locale') }}">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.master')
 
-        <title>Laravel</title>
+@section('title', '記事詳細')
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+@section('menubar')
+    {{ link_to('/', '一覧') }}
+@endsection
 
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Raleway', sans-serif;
-                font-weight: 100;
-                height: 100vh;
-                margin: 0;
-            }
-
-            .full-height {
-                height: 100vh;
-            }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 12px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-
-            <div class="content">
-                <div class="title m-b-md">
-                    list Page
-                </div>
-                <div>
-                    {{ link_to('/', '一覧') }}
-                </div>
-                                <!-- DBから取得した投稿一覧を表示 -->
-                <table border="1">
-                    <tr>
-                        <td>{{ $post->id }}</td>
-                        <td>{{ link_to('posts/'.$post->id.'/edit', $post->title) }}</td>
-                        <td>{{ $post->content }}</td>
-                        <td>{{ $post->created_at }}</td>
-                        <td>{{ $post->updated_at }}</td>
-                    </tr>
-                </table>
-
-
-            </div>
-        </div>
-    </body>
-</html>
+@section('content')
+    <table>
+        <tr>
+            <th>id</th>
+            <td>{{ $post->id }}</td>
+        </tr>
+        <tr>
+            <th>タイトル</th>
+            <td>{{ $post->title }}</td>
+        </tr>
+        <tr>
+            <th>コンテンツ</th>
+            <td>{{ $post->content }}</td>
+        </tr>
+        <tr>
+            <th>作成日時</th>
+            <td>{{ $post->created_at }}</td>
+        </tr>
+        <tr>
+            <th>更新日時</th>
+            <td>{{ $post->updated_at }}</td>
+        </tr>
+        <td>
+            @include('posts._edit')
+        </td>
+        <td>
+            @include('posts._delete')
+        </td>
+    </table>
+@endsection

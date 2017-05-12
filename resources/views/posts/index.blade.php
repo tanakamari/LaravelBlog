@@ -1,93 +1,22 @@
-<!doctype html>
-<html lang="{{ config('app.locale') }}">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.master')
 
-        <title>Laravel</title>
+@section('title', '記事一覧')
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+@section('menubar')
+    {{ link_to('/posts/create', '新規登録') }}
+@endsection
 
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Raleway', sans-serif;
-                font-weight: 100;
-                height: 100vh;
-                margin: 0;
-            }
-
-            .full-height {
-                height: 100vh;
-            }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 12px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-
-            <div class="content">
-                <div class="title m-b-md">
-                    list Page
-                </div>
-                <div>
-                    {{ link_to('/posts/create', '新規登録') }}
-                </div>
-                                <!-- DBから取得した投稿一覧を表示 -->
-                <table >
-                    @foreach($posts as $post)
-                        <tr>
-                            <td>{{ $post->id }}</td>
-                            <td>{{ link_to('posts/'.$post->id, $post->title) }}</td>
-                            <td>{{ link_to('posts/'.$post->id.'/edit', '編集') }}</td>
-                            <td>{{ link_to('posts/'.$post->id.'/delete', '削除') }}</td>
-                        </tr>
-                  @endforeach
-                </table>
-
-
+@section('content')
+    <!-- DBから取得した投稿一覧を表示 -->
+    <div>
+        @foreach($posts as $post)
+            <div>
+                <div class="links">
+                    {{ link_to('posts/' . $post->id, $post->title) }}
+                    @include('posts._edit')
+                    @include('posts._delete')
+                </ul>
             </div>
-        </div>
-    </body>
-</html>
+        @endforeach
+    </div>
+@endsection

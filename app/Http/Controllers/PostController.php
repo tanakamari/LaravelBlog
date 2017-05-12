@@ -9,29 +9,42 @@ use DB;
 class PostController extends Controller
 {
 
-    //一覧画面
     public function index()
     {
-        //DBデータをまとめてもらう
+        /**
+         * 一覧ページ
+         * @return
+         */
+
         $posts = Post::all();
 
         return view('posts.index', [
             "posts" => $posts
         ]);
     }
-    //詳細画面
+
     public function show($id)
     {
-        //DBデータをまとめてもらう
+        /**
+         * 詳細ページ
+         * @param  Request $id 投稿id
+         * @return
+         */
+
         $post = Post::find($id);
 
         return view('posts.show', [
             "post" => $post
         ]);
     }
-    // 作成画面
+
+    //
     public function create()
     {
+        /**
+         * 作成ページ
+         * @return
+         */
         //DBデータをまとめてもらう
         $post = new Post();
 
@@ -40,49 +53,63 @@ class PostController extends Controller
         ]);
     }
 
-    //作成処理
     public function store(Request $request)
     {
-        dd($request->all());
+        /**
+         * 登録機能
+         * @param  Request $id 投稿id
+         * @return
+         */
+
         Post::create($request->all());
 
-        //一覧ページへリダイレクトをおこなう
         return redirect('/');
     }
 
-    //編集画面
     public function edit(Request $request, $id)
     {
-        //DBデータをまとめてもらう
+        /**
+         * 編集ページ
+         * @param  Request $id 投稿id
+         * @return
+         */
+
         $post = Post::find($id);
 
         return view('posts.edit', [
             "post" => $post
         ]);
     }
-    //編集処理
+
     public function update(Request $request, $id)
     {
-        //リクエストで受けた全てのデータ
+        /**
+         * 編集処理
+         * @param  Request $id 投稿id
+         * @return
+         */
+
         $data = $request->all();
 
-        //データをpostsテーブルにアップデート
         Post::where('id', $id)
             ->update([
                 'title' => $data['title'],
                 'content' => $data['content']
             ]);
-        //アップデートは下記の書き方でもOK
-        /*
-        $posts = Post::find($id);
-        $posts->title = $data['title'];
-        $posts->content = $data['content'];
-        $posts->save();
-        */
 
-
-
-        //一覧ページへリダイレクトをおこなう
         return redirect('/posts/'.$id);
+    }
+
+    public function delete($id)
+    {
+        /**
+         * 削除処理
+         * @param  Request $id 投稿id
+         * @return
+         */
+
+        Post::destroy($id);
+
+        return redirect('/');
     }
 }
