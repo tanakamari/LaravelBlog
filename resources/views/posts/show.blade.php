@@ -1,6 +1,4 @@
-@extends('layouts.master')
-
-@section('title', '記事詳細')
+@extends('layouts.app')
 
 @section('content')
     <div class="row">

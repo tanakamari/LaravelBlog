@@ -1,6 +1,4 @@
-@extends('layouts.master')
-
-@section('title', '記事一覧')
+@extends('layouts.app')
 
 @section('content')
     <!-- 検索フォーム -->

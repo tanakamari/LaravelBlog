@@ -12,13 +12,13 @@
 */
 
 //defaultページ
-Route::get('/', 'PostController@index');
+Route::get('/',  'PostController@index');
 
 //一覧ページ
 Route::get('/posts', 'PostController@index');
 
 //作成ページ
-Route::get('/posts/create', 'PostController@create');
+//Route::get('/posts/create', 'PostController@create');
 
 //作成処理
 Route::post('/posts', 'PostController@store');
@@ -27,10 +27,26 @@ Route::post('/posts', 'PostController@store');
 Route::get('/posts/{id}', 'PostController@show');   //idを正規表現で取得する
 
 //編集ページ
-Route::get('/posts/{id}/edit', 'PostController@edit');
+//Route::get('/posts/{id}/edit', 'PostController@edit');
 
 //編集処理
 Route::put('/posts/{id}', 'PostController@update');
 
 //削除処理
-Route::delete('/posts/{id}/destroy', 'PostController@destroy');
+//Route::delete('/posts/{id}', 'PostController@destroy');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+
+Route::group(['middleware' => ['auth', 'can:admin']], function () {
+    //作成ページ
+    Route::get('/posts/create', 'PostController@create');
+
+    //編集ページ
+    Route::get('/posts/{id}/edit', 'PostController@edit');
+
+    //削除処理
+    Route::delete('/posts/{id}', 'PostController@destroy');
+});

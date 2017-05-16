@@ -1,6 +1,4 @@
-@extends('layouts.master')
-
-@section('title', '記事作成')
+@extends('layouts.app')
 
 @section('content')
     {!! Form::open(['url' => '/posts']) !!}
