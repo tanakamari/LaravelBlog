@@ -9,28 +9,45 @@ use DB;
 class PostController extends Controller
 {
 
-    public function index()
+    /**
+    * 一覧ページ
+    * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+    */
+    public function index(Request $request)
     {
-        /**
-         * 一覧ページ
-         * @return
-         */
+        $keyword = $request->input('keyword');
+        $date = $request->input('date');
 
-        $posts = Post::all();
-
+        //SQLの条件は where (title or content) and created_at
+        $posts = Post::where(function ($query) use ($keyword) {
+                $query->where('title', 'LIKE', "%$keyword%")
+                    ->orWhere('content', 'LIKE', "%$keyword%");
+            })
+            ->where('created_at', 'LIKE', "$date%")
+            ->paginate(5);
+/* SQL確認
+        $sql = Post::where(function ($query) use ($keyword) {
+                $query->where('title', 'LIKE', "%$keyword%")
+                    ->orWhere('content', 'LIKE', "%$keyword%");
+            })
+            ->where('created_at', 'LIKE', "$date%")
+            ->toSql();
+        dd(var_dump($sql));
+*/
         return view('posts.index', [
             "posts" => $posts
+            ,"keyword" => $keyword
+            ,"date" => $date
         ]);
     }
 
+    /**
+     * 詳細ページ
+     * @param  int $id 投稿id
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     */
     public function show($id)
     {
-        /**
-         * 詳細ページ
-         * @param  Request $id 投稿id
-         * @return
-         */
-
         $post = Post::find($id);
 
         return view('posts.show', [
@@ -38,13 +55,12 @@ class PostController extends Controller
         ]);
     }
 
-    //
+    /**
+     * 作成ページ
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     */
     public function create()
     {
-        /**
-         * 作成ページ
-         * @return
-         */
         //DBデータをまとめてもらう
         $post = new Post();
 
@@ -53,27 +69,26 @@ class PostController extends Controller
         ]);
     }
 
+    /**
+     * 登録機能
+     * @param  Request $request
+     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+     */
     public function store(Request $request)
     {
-        /**
-         * 登録機能
-         * @param  Request $id 投稿id
-         * @return
-         */
-
         Post::create($request->all());
 
         return redirect('/');
     }
 
+    /**
+     * 編集ページ
+     * @param  Request $request
+     * @param  int  $id  投稿id
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     */
     public function edit(Request $request, $id)
     {
-        /**
-         * 編集ページ
-         * @param  Request $id 投稿id
-         * @return
-         */
-
         $post = Post::find($id);
 
         return view('posts.edit', [
@@ -81,14 +96,14 @@ class PostController extends Controller
         ]);
     }
 
+    /**
+     * 更新処理
+     * @param  Request $request
+     * @param  int  $id  投稿id
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     */
     public function update(Request $request, $id)
     {
-        /**
-         * 編集処理
-         * @param  Request $id 投稿id
-         * @return
-         */
-
         $data = $request->all();
 
         Post::where('id', $id)
@@ -97,19 +112,19 @@ class PostController extends Controller
                 'content' => $data['content']
             ]);
 
-        return redirect('/posts/'.$id);
+        return redirect('/');
     }
 
+    /**
+     * 削除処理
+     * @param  int  $id  投稿id
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     */
     public function destroy($id)
     {
-        /**
-         * 削除処理
-         * @param  Request $id 投稿id
-         * @return
-         */
-
         Post::destroy($id);
 
         return redirect('/');
     }
+
 }

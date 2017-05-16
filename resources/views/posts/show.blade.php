@@ -2,37 +2,23 @@
 
 @section('title', '記事詳細')
 
-@section('menubar')
-    {{ link_to('/', '一覧') }}
-@endsection
-
 @section('content')
-    <table>
-        <tr>
-            <th>id</th>
-            <td>{{ $post->id }}</td>
-        </tr>
-        <tr>
-            <th>タイトル</th>
-            <td>{{ $post->title }}</td>
-        </tr>
-        <tr>
-            <th>コンテンツ</th>
-            <td>{{ $post->content }}</td>
-        </tr>
-        <tr>
-            <th>作成日時</th>
-            <td>{{ $post->created_at }}</td>
-        </tr>
-        <tr>
-            <th>更新日時</th>
-            <td>{{ $post->updated_at }}</td>
-        </tr>
-        <td>
+    <div class="row">
+        <div class="col-md-12">
+            <h3>id</h3>
+            <p>{{ $post->id }}</p>
+            <h3>タイトル</h3>
+            <p>{{ $post->title }}</p>
+            <h3>コンテンツ</h3>
+            <p>{{ $post->content }}</p>
+            <h3>作成日時</h3>
+            <p>{{ $post->created_at }}</p>
+            <h3>更新日時</h3>
+            <p>{{ $post->updated_at }}</p>
+        </div>
+        <div class="btn-group" role="group">
             @include('posts._edit')
-        </td>
-        <td>
             @include('posts._destroy')
-        </td>
-    </table>
+        </div>
+    </div>
 @endsection

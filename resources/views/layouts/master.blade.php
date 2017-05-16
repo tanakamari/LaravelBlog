@@ -12,45 +12,48 @@
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Raleway', sans-serif;
-                font-weight: 100;
-                height: 100vh;
-                margin: 0;
-            }
-
-            .menubar {
-                text-align: left;
-            }
-
-            .content {
-                text-align: left;
-            }
-
-            .links > form {
-                color: #636b6f;
-                font-size: 12px;
-                font-weight: 600;
-                text-decoration: none;
-                text-transform: uppercase;
-                display: inline;
-            }
-
         </style>
 
     </head>
     <body>
-        <div>
-            <div class="menubar">
-                @yield('menubar')
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-default">
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbarEexample">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    {{ link_to('/', 'Laravel Blog Tutrial', ['class' => "navbar-brand"]) }}
+                </div>
+                <div class="collapse navbar-collapse" id="navbarEexample">
+                    <ul class="nav navbar-nav">
+                        <li>{{ link_to('/posts/create', 'Create') }}</li>
+                    </ul>
+                    <button type="button" class="btn btn-default navbar-btn navbar-right">Sign in</button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Page Content -->
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>@yield('title')</h1>
+                </div>
             </div>
 
-            <div class="content">
+            <div class="row">
                 @yield('content')
             </div>
+
         </div>
+        <!-- /.container -->
+
     </body>
 </html>
