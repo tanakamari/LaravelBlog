@@ -16,7 +16,6 @@
 
     </head>
     <body>
-
         <!-- Navigation -->
         <nav class="navbar navbar-default">
             <div class="container">
@@ -41,6 +40,20 @@
 
         <!-- Page Content -->
         <div class="container">
+
+            {{-- フラッシュメッセージの表示 --}}
+            @if (Session::has('flash_message'))
+                <div class="alert alert-success">{{ Session::get('flash_message') }}</div>
+            @endif
+
+            {{-- エラーメッセージの表示 --}}
+            @if(count($errors) > 0)
+                <div class="alert alert-danger">
+                    @foreach ($errors->all() as $error)
+                        {{ $error }}
+                    @endforeach
+                </div>
+            @endif
 
             <div class="row">
                 <div class="col-md-12">

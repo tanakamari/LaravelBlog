@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Post;
 use DB;
+use App\Http\Requests\PostRequest;
 
 class PostController extends Controller
 {
@@ -25,15 +26,7 @@ class PostController extends Controller
             })
             ->where('created_at', 'LIKE', "$date%")
             ->paginate(5);
-/* SQL確認
-        $sql = Post::where(function ($query) use ($keyword) {
-                $query->where('title', 'LIKE', "%$keyword%")
-                    ->orWhere('content', 'LIKE', "%$keyword%");
-            })
-            ->where('created_at', 'LIKE', "$date%")
-            ->toSql();
-        dd(var_dump($sql));
-*/
+
         return view('posts.index', [
             "posts" => $posts
             ,"keyword" => $keyword
@@ -71,12 +64,14 @@ class PostController extends Controller
 
     /**
      * 登録機能
-     * @param  Request $request
+     * @param  PostRequest $request
      * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(PostRequest $request)
     {
         Post::create($request->all());
+
+        \Session::flash('flash_message', '記事を作成しました。');
 
         return redirect('/');
     }
@@ -102,7 +97,7 @@ class PostController extends Controller
      * @param  int  $id  投稿id
      * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
-    public function update(Request $request, $id)
+    public function update(PostRequest $request, $id)
     {
         $data = $request->all();
 
@@ -111,6 +106,8 @@ class PostController extends Controller
                 'title' => $data['title'],
                 'content' => $data['content']
             ]);
+
+        \Session::flash('flash_message', '記事を更新しました。');
 
         return redirect('/');
     }
@@ -123,6 +120,8 @@ class PostController extends Controller
     public function destroy($id)
     {
         Post::destroy($id);
+
+        \Session::flash('flash_message', '記事を削除しました。');
 
         return redirect('/');
     }
